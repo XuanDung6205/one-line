@@ -1,0 +1,18 @@
+Bước 1 — Degree check
+Rẻ, kiểm tra số hàng xóm khả dụng. Có ô bậc 0 hoặc quá nhiều ô bậc 1 thì cắt.
+
+Bước 2 — Checkerboard parity
+Đếm hai màu và kiểm tra màu của điểm đầu. Chi phí thấp nếu duy trì số lượng màu theo trạng thái.
+
+Bước 3 — Connectivity check
+Chạy BFS/DFS trên đồ thị tương lai. Chi phí O(V + E) nếu duyệt lại toàn bộ.
+
+(?)
+Bước 4 — Articulation-point check
+Kiểm tra cấu trúc sâu hơn bằng DFS với tin/low. Có thể tốn thêm chi phí đáng kể.
+
+-------------------
+Với lưới bàn cờ hai màu, mỗi bước đi đổi màu. Vì vậy, nếu có đường đi Hamilton:
+- Nếu tổng số ô bằng nhau, hai đầu mút phải khác màu.
+- Nếu số ô trắng nhiều hơn số ô đen một ô, cả hai đầu mút phải là ô trắng.
+- Nếu số ô đen nhiều hơn số ô trắng một ô, cả hai đầu mút phải là ô đen.
