@@ -1,0 +1,801 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+    font-family: Manrope, system-ui, sans-serif;
+    color: #eaf0ff;
+    background: #0b1020;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility
+}
+
+* {
+    box-sizing: border-box
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at 15% 0%, #192b4c 0, transparent 40%), radial-gradient(ellipse at 90% 20%, #14283a 0, transparent 35%), #0b1020
+}
+
+.app-shell {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 32px 24px 24px
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 1px solid #29334a;
+    padding-bottom: 24px
+}
+
+.brand-mark {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: #4d9cff;
+    color: #071120;
+    font-size: 29px;
+    font-weight: 800
+}
+
+.eyebrow {
+    font: 500 10px 'DM Mono', monospace;
+    letter-spacing: .18em;
+    color: #79b8ff;
+    margin: 0 0 6px
+}
+
+.topbar h1 {
+    font-size: 24px;
+    margin: 0;
+    letter-spacing: -.06em
+}
+
+.topbar h1 span {
+    color: #8abfff
+}
+
+.live {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 11px 'DM Mono', monospace;
+    color: #9baac7;
+    background: #141e32;
+    border: 1px solid #2a3854;
+    border-radius: 99px;
+    padding: 10px 13px
+}
+
+.live i,
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 12px #4ade8070
+}
+
+.intro {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 34px 0 26px
+}
+
+.intro h2 {
+    font-size: clamp(25px, 4vw, 38px);
+    letter-spacing: -.06em;
+    margin: 0 0 8px
+}
+
+.muted {
+    color: #91a0bc;
+    margin: 0;
+    font-size: 14px
+}
+
+.solve-btn,
+.secondary-btn,
+.reset-btn {
+    font: 700 13px Manrope, sans-serif;
+    border: 0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: .18s
+}
+
+.solve-btn {
+    background: #68adff;
+    color: #081426;
+    padding: 14px 20px;
+    white-space: nowrap;
+    box-shadow: 0 8px 28px #3f8eff25
+}
+
+.solve-btn:hover {
+    background: #8ac0ff;
+    transform: translateY(-1px)
+}
+
+button:disabled {
+    opacity: .6;
+    cursor: wait
+}
+
+.workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(280px, .8fr);
+    gap: 18px
+}
+
+.board-panel,
+.side-panel {
+    background: #111a2b;
+    border: 1px solid #29354d;
+    border-radius: 20px;
+    padding: 22px;
+    min-width: 0
+}
+
+.panel-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px
+}
+
+.panel-heading h3 {
+    margin: 0 0 5px;
+    font-size: 16px
+}
+
+.panel-heading p {
+    margin: 0;
+    color: #8594b2;
+    font: 11px 'DM Mono', monospace
+}
+
+.pill {
+    font: 10px 'DM Mono', monospace;
+    color: #a6cfff;
+    background: #1a2e49;
+    border: 1px solid #2a4b70;
+    border-radius: 99px;
+    padding: 7px 9px;
+    white-space: nowrap
+}
+
+.board {
+    position: relative;
+    display: grid;
+    gap: 7px;
+    max-width: 570px;
+    margin: 0 auto
+}
+
+.tile {
+    aspect-ratio: 1;
+    min-width: 0;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    position: relative;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: background .15s, border-color .15s, transform .15s
+}
+
+.tile:hover {
+    transform: scale(.96);
+    border-color: #b7d9ff
+}
+
+.tile.open {
+    background: #3294e7
+}
+
+.tile.blocked {
+    background: #303d53;
+    border-color: #3d4a60
+}
+
+.tile.on-path {
+    background: #91d5ff;
+    border-color: #c1e8ff;
+    box-shadow: 0 0 18px #58b6ff3b
+}
+
+.tile.start {
+    outline: 3px solid #ffcb5c;
+    outline-offset: -4px
+}
+
+.start-dot {
+    width: 36%;
+    height: 36%;
+    border-radius: 50%;
+    background: #fff;
+    border: 4px solid #b6e0ff;
+    box-shadow: 0 0 0 5px #ffffff20
+}
+
+.path-number {
+    font: 500 clamp(8px, 1.3vw, 13px) 'DM Mono', monospace;
+    color: #10233c
+}
+
+.hint {
+    color: #7485a4;
+    font-size: 11px;
+    line-height: 1.6;
+    margin: 16px 0 0
+}
+
+.status-dot {
+    flex: none
+}
+
+.status-dot.busy {
+    background: #facc15;
+    animation: pulse 1s infinite
+}
+
+.status-box {
+    background: #0c1424;
+    border: 1px solid #29354d;
+    border-radius: 12px;
+    padding: 14px;
+    color: #b6c7e4;
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 72px
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+    margin-top: 12px
+}
+
+.stats div {
+    background: #172236;
+    border: 1px solid #29354d;
+    border-radius: 12px;
+    padding: 12px
+}
+
+.stats div:last-child {
+    grid-column: 1/-1
+}
+
+.stats span {
+    display: block;
+    font-size: 10px;
+    color: #8a9ab8;
+    margin-bottom: 6px
+}
+
+.stats strong {
+    font: 500 19px 'DM Mono', monospace;
+    color: #e7f2ff
+}
+
+.stepper {
+    margin-top: 20px;
+    border-top: 1px solid #29354d;
+    padding-top: 18px
+}
+
+.stepper-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #a8bad8
+}
+
+.stepper input {
+    width: 100%;
+    accent-color: #67adff;
+    margin: 16px 0 8px
+}
+
+.stepper p {
+    font-size: 12px;
+    color: #91a0bc
+}
+
+.stepper b {
+    font-family: 'DM Mono', monospace;
+    color: #c8e3ff
+}
+
+.secondary-btn {
+    background: #203653;
+    color: #b9dcff;
+    padding: 10px 12px
+}
+
+.secondary-btn:hover {
+    background: #2b496d
+}
+
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid #29354d
+}
+
+.legend span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #8d9db9;
+    font-size: 10px
+}
+
+.legend i {
+    width: 9px;
+    height: 9px;
+    border-radius: 3px;
+    display: inline-block
+}
+
+.legend-open {
+    background: #3294e7
+}
+
+.legend-blocked {
+    background: #3d4a60
+}
+
+.legend-path {
+    background: #91d5ff
+}
+
+.reset-btn {
+    margin-top: 20px;
+    width: 100%;
+    background: transparent;
+    border: 1px solid #35425a;
+    color: #9aabc8;
+    padding: 11px
+}
+
+.reset-btn:hover {
+    background: #1b273c
+}
+
+footer {
+    text-align: center;
+    color: #53627e;
+    font: 10px 'DM Mono', monospace;
+    padding: 26px 0 4px
+}
+
+@keyframes pulse {
+    50% {
+        opacity: .35
+    }
+}
+
+.board-settings {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 0 0 22px;
+    padding: 16px;
+    background: linear-gradient(135deg, #151f33, #101a2c);
+    border: 1px solid #293b57;
+    border-radius: 14px;
+}
+
+.board-settings label {
+    display: flex;
+    flex: 1 1 110px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    min-width: 0;
+    color: #9fb2d0;
+    font: 500 11px 'DM Mono', monospace;
+}
+
+.board-settings .setting-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #9fb2d0;
+    font: 500 11px 'DM Mono', monospace;
+    white-space: nowrap;
+}
+
+.board-settings .setting-icon {
+    color: #68adff;
+    font-size: 15px;
+}
+
+.board-settings input[type="number"] {
+    display: block;
+    width: 100%;
+    height: 42px;
+    min-width: 0;
+    margin: 0;
+    padding: 0 12px;
+    background: #0b1425;
+    color: #eaf3ff;
+    border: 1px solid #34445f;
+    border-radius: 10px;
+    outline: none;
+    font: 500 15px 'DM Mono', monospace;
+    transition: border-color .2s, box-shadow .2s, background .2s;
+}
+
+.board-settings input[type="number"]:hover {
+    border-color: #52729b;
+}
+
+.board-settings input[type="number"]:focus {
+    background: #0d192d;
+    border-color: #68adff;
+    box-shadow: 0 0 0 3px #68adff20;
+}
+
+.board-settings .apply-size-btn {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 42px;
+    margin: 0 0 0 4px;
+    padding: 0 16px;
+    background: #203653;
+    color: #b9dcff;
+    border: 1px solid #344d6c;
+    border-radius: 10px;
+    white-space: nowrap;
+    font: 700 12px Manrope, sans-serif;
+    transition: transform .18s, box-shadow .18s, background .18s;
+}
+
+.board-settings .apply-size-btn:hover {
+    background: #2b496d;
+    transform: translateY(-1px);
+}
+
+.board-settings .apply-size-btn:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.board-settings .apply-size-btn>span {
+    font-size: 16px;
+}
+
+.board-settings .board-size-info {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    gap: 3px;
+    min-width: 54px;
+    margin-left: auto;
+}
+
+.board-settings .size-number {
+    color: #8fc6ff;
+    font: 500 18px 'DM Mono', monospace;
+    line-height: 1.2;
+}
+
+.board-settings .size-caption {
+    color: #8294b4;
+    font: 10px Manrope, sans-serif;
+    white-space: nowrap;
+}
+
+@media(max-width:760px) {
+    .app-shell {
+        padding: 20px 12px
+    }
+
+    .intro {
+        align-items: flex-start;
+        flex-direction: column
+    }
+
+    .workspace {
+        grid-template-columns: 1fr
+    }
+
+    .board-panel,
+    .side-panel {
+        padding: 16px
+    }
+
+    .board {
+        gap: 5px
+    }
+
+    .tile {
+        border-radius: 7px
+    }
+
+    .live {
+        font-size: 9px;
+        padding: 8px
+    }
+
+    .topbar h1 {
+        font-size: 20px
+    }
+
+
+    /* ===== BOARD SETTINGS ===== */
+
+    .board-settings {
+        display: flex;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 0 0 22px;
+        padding: 16px;
+        background: linear-gradient(135deg, #151f33, #101a2c);
+        border: 1px solid #293b57;
+        border-radius: 14px;
+    }
+
+    /* Mỗi nhóm label + input */
+    .board-settings label {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        flex: 1 1 90px;
+        min-width: 0;
+        color: #9fb2d0;
+        font: 500 11px 'DM Mono', monospace;
+    }
+
+    .board-settings input[type="number"] {
+        display: block;
+        width: 100%;
+        height: 42px;
+        min-width: 0;
+        margin: 0;
+        padding: 0 12px;
+        background: #0b1425;
+        color: #eaf3ff;
+        border: 1px solid #34445f;
+        border-radius: 10px;
+        outline: none;
+        font: 500 15px 'DM Mono', monospace;
+        transition: border-color .2s, box-shadow .2s;
+    }
+
+    /* Focus: viền xanh phát sáng */
+    .board-settings input[type="number"]:focus {
+        border-color: #68adff;
+        box-shadow: 0 0 0 3px #68adff20;
+    }
+
+    /* Hover */
+    .board-settings input[type="number"]:hover {
+        border-color: #52729b;
+    }
+
+    .board-settings .apply-size-btn:hover {
+        background: #2b496d;
+        transform: translateY(-1px);
+    }
+
+    /* Nút áp dụng */
+    .board-settings .secondary-btn {
+        flex: none;
+        min-height: 42px;
+        padding: 0 17px;
+        background: linear-gradient(135deg, #68adff, #438ce0);
+        color: #081426;
+        border: 1px solid #83bdff;
+        border-radius: 10px;
+        font: 800 12px Manrope, sans-serif;
+        box-shadow: 0 4px 16px #3f8eff20;
+        transition: transform 0.18s, box-shadow 0.18s, filter 0.18s;
+    }
+
+    .board-settings .secondary-btn:hover {
+        background: linear-gradient(135deg, #91c6ff, #68adff);
+        color: #081426;
+        transform: translateY(-2px);
+        box-shadow: 0 7px 20px #3f8eff35;
+    }
+
+    .board-settings .secondary-btn:active {
+        transform: translateY(0);
+        box-shadow: none;
+    }
+
+    /* Tổng số ô */
+    .board-settings>span {
+        align-self: center;
+        margin-left: auto;
+        padding: 7px 10px;
+        color: #8fc6ff;
+        background: #1a2e49;
+        border: 1px solid #2a4b70;
+        border-radius: 8px;
+        font: 500 10px 'DM Mono', monospace;
+        white-space: nowrap;
+    }
+
+
+    /* Label và icon nằm cùng hàng */
+    .board-settings .setting-label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+        color: #9fb2d0;
+        font: 500 11px 'DM Mono', monospace;
+    }
+
+    .setting-icon {
+        color: #68adff;
+        font-size: 15px;
+    }
+
+    /* Nút áp dụng */
+    .board-settings .apply-size-btn {
+        display: inline-flex;
+        flex: 0 0 auto;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        min-height: 42px;
+        margin: 0;
+        padding: 0 16px;
+        background: #203653;
+        color: #b9dcff;
+        border: 1px solid #344d6c;
+        border-radius: 10px;
+        white-space: nowrap;
+        font: 700 12px Manrope, sans-serif;
+    }
+
+    .apply-size-btn>span {
+        font-size: 16px;
+    }
+
+    /* Board size information */
+    .board-size-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        min-width: 66px;
+        align-self: center;
+    }
+
+    .board-size-info .size-number {
+        color: #eaf3ff;
+        font: 500 19px 'DM Mono', monospace;
+    }
+
+    /* Khối thống kê: giữ nằm ngang, không biến thành dòng chữ khổng lồ */
+    .board-settings .board-size-info {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        align-self: center;
+        min-width: 54px;
+        margin-left: auto;
+        padding: 0;
+        background: transparent;
+        border: 0;
+    }
+
+    .board-settings .board-size-info .size-number {
+        display: block;
+        color: #8fc6ff;
+        font: 500 18px 'DM Mono', monospace;
+        line-height: 1.2;
+    }
+
+    .board-settings .board-size-info .size-caption {
+        display: block;
+        color: #8294b4;
+        font: 10px Manrope, sans-serif;
+        white-space: nowrap;
+    }
+
+    .board-size-info .size-caption {
+        color: #8294b4;
+        font-size: 9px;
+        white-space: nowrap;
+    }
+
+    .board-settings .setting-icon {
+        color: #68adff;
+        font-size: 14px;
+    }
+
+    /* Disabled while solving */
+    .board-settings .apply-size-btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+
+
+    /* Responsive cho điện thoại */
+    @media (max-width: 480px) {
+        .board-settings {
+            gap: 10px;
+            padding: 12px;
+        }
+
+        .board-settings label {
+            min-width: 70px;
+        }
+
+        .board-settings .secondary-btn {
+            flex: 1 1 100%;
+            width: 100%;
+        }
+
+        .board-settings>span {
+            margin-left: 0;
+        }
+    }
+
+    .board-wrapper {
+        position: relative;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .board-wrapper .board {
+        position: relative;
+        z-index: 1;
+    }
+
+    .board {
+        position: relative;
+    }
+
+    .path-overlay {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        pointer-events: none;
+        overflow: visible;
+    }
+
+}
